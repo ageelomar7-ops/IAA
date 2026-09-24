@@ -1641,13 +1641,13 @@ function addTask(){
   saveToCloud() ;
 }
 function toggleTask(id){
-  const t = tasks.find(x=>x.id===id);
+  const t = tasks.find( x => x.id === id );
   if(t) t.done = !t.done;
   renderAll();
   saveToCloud() ;
 }
 function deleteTask(id){
-  tasks = tasks.filter(x=>x.id!==id);
+  tasks = tasks.filter( x => x.id !== id );
   renderAll();
   saveToCloud() ;
 }

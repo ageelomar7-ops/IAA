@@ -1638,15 +1638,18 @@ function addTask(){
   tasks.push({id:++idCounter, text, done:false});
   input.value='';
   renderAll();
+  saveToCloud() ;
 }
 function toggleTask(id){
   const t = tasks.find(x=>x.id===id);
   if(t) t.done = !t.done;
   renderAll();
+  saveToCloud() ;
 }
 function deleteTask(id){
   tasks = tasks.filter(x=>x.id!==id);
   renderAll();
+  saveToCloud() ;
 }
 function renderTasks(){
   const pending = tasks.filter(t=>!t.done).length;

@@ -1677,6 +1677,7 @@ function renderAll(){
   renderGangList();
   renderOrgPanel();
   renderTasks();
+  saveToCloud();
 }
 
 renderAll();
@@ -1696,26 +1697,26 @@ initMap();
     appId: "1:1024541568105:web:4c6e3552f88970cf9f06f8",
     measurementId: "G-90WMRTLK1B"
   };
-
-  // تهيئة الفايربيس وقاعدة البيانات
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // استرجاع البيانات تلقائياً عند أي تغيير
-  onValue(ref(db, 'appData'), (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      if (data.tasks) tasks = data.tasks;
-      if (typeof renderAll === 'function') renderAll();
-    }
-  });
-
-  // دالة الحفظ أونلاين
-  window.saveToCloud = function() {
-    set(ref(db, 'appData'), {
-      tasks: typeof tasks !== 'undefined' ? tasks : []
-    });
-  };
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+onValue(ref(db, 'appData'), (snapshot) => {
+const data = snapshot.val();
+if (data) {
+if (data.tasks) tasks = data.tasks;
+if (data.employees) employees = data.employees;
+if (data.gangs) gangs = data.gangs;
+if (data.wanted) wanted = data.wanted;
+if (typeof renderAll === 'function') renderAll();
+}
+});
+window.saveToCloud = function() {
+set(ref(db, 'appData'), {
+tasks: typeof tasks !== 'undefined' ? tasks : [],
+employees: typeof employees !== 'undefined' ? employees : [],
+gangs: typeof gangs !== 'undefined' ? gangs : [],
+wanted: typeof wanted !== 'undefined' ? wanted : []
+});
+}
   </script>
 </body>
 </html>

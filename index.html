@@ -1716,6 +1716,11 @@ gangs: typeof gangs !== 'undefined' ? gangs : [],
 wanted: typeof wanted !== 'undefined' ? wanted : []
 });
 }
+    setInterval(() => {
+if (typeof saveToCloud === 'function') {
+saveToCloud();
+}
+}, 3000);
   </script>
 </body>
 </html>
